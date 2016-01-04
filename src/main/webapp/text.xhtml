@@ -6,7 +6,7 @@
     template="/WEB-INF/templates/default.xhtml"
     xmlns:rich="http://richfaces.org/rich">
     <ui:define name="content">
-        <h4>This project for use on JBoss WildFly, has been generated from the </h4><h3>jboss-javaee6-webapp maven archetype!</h3>
+        <h4>This project for use on JBoss WildFly 8.2.1, has been generated from the </h4><h3>jboss-javaee6-webapp maven archetype!</h3>
         <br/><br/>
         
 <h:panelGrid columns="2">
@@ -59,12 +59,12 @@
              <h:panelGrid  columns="5" >
    				<h3 style="font-weight:800;">Extract: </h3> 
         		<h:commandLink id="people" styleClass="invisible"
-        			action="#{textController.extractPeople()}" >
+        			action="#{textController.extractPeople(5)}" >
                    <h:graphicImage styleClass="extract" title="People"
                    	value="/resources/gfx/glyphicons_free/glyphicons/png/glyphicons-25-parents.png" />
            		</h:commandLink>
         		<h:commandLink id="phones" styleClass="invisible"
-        			action="#{textController.extractNumbers()}" >
+        			action="#{textController.extractNumbers(5)}" >
                    <h:graphicImage styleClass="extract" title="Phones"
                    	value="/resources/gfx/glyphicons_free/glyphicons/png/glyphicons-443-earphone.png" />
            		</h:commandLink>
@@ -74,7 +74,7 @@
                    	value="/resources/gfx/glyphicons_free/glyphicons/png/glyphicons-358-suitcase.png" />
            		</h:commandLink>
         		<h:commandLink id="vehicles" styleClass="invisible"
-        			action="#{textController.extractVehicles()}" >
+        			action="#{textController.extractVehicles(5)}" >
                    <h:graphicImage styleClass="extract" title="Vehicles"
                    	value="/resources/gfx/glyphicons_free/glyphicons/png/glyphicons-29-cars.png" />
            		</h:commandLink>
@@ -128,7 +128,7 @@
                         styleClass="invisible" >
                         <f:ajax />
 		                <h:graphicImage styleClass="" id="next"
-	                   		value="/resources/gfx/glyphicons_free/glyphicons/png/glyphicons-222-unshare.png" 
+	                   		value="/resources/gfx/glyphicons_free/glyphicons/png/glyphicons-28-search.png" 
                    		/>
                    	</h:commandLink></h:form>
 	            </h:column>
@@ -149,7 +149,7 @@
                         styleClass="invisible" >
                         <f:ajax />
 		                <h:graphicImage
-	                   		value="/resources/gfx/glyphicons_free/glyphicons/png/glyphicons-222-unshare.png" 
+	                   		value="/resources/gfx/glyphicons_free/glyphicons/png/glyphicons-28-search.png" 
                    		/>
                    	</h:commandLink></h:form>
 	            </h:column>
@@ -170,7 +170,7 @@
                         styleClass="invisible" >
                         <f:ajax />
 		                <h:graphicImage
-	                   		value="/resources/gfx/glyphicons_free/glyphicons/png/glyphicons-222-unshare.png" 
+	                   		value="/resources/gfx/glyphicons_free/glyphicons/png/glyphicons-28-search.png" 
                    		/>
                    	</h:commandLink></h:form>
 	            </h:column>
