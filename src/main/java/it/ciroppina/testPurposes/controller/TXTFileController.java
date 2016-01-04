@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Properties;
 
@@ -188,14 +187,14 @@ public class TXTFileController {
 		}
 	}
 	
-	public void extractPeople() {
+	public void extractPeople(long hm) {
 		offsets = null;
 		//mock
 		//this.people.put("De Filippis Gilda", ""+180L);
 		//this.people.put("CARILLO Gianfranco", ""+79L);
 		if (this.text == null || this.text.length() < 10) return;
 		if (people == null || people.size() < 1) {
-			Long frequency = 05L;
+			Long frequency = hm;
 			FindEntity finder = new FindEntity(CAPITALIZED_WORDS, this.text);
 			Map<String, Group> groups = finder.groupWithMinFrequencyOf(frequency);
 			Map<String, Group> people = finder.people(groups);
@@ -209,12 +208,12 @@ public class TXTFileController {
 //		}
 	}
 
-	public void extractNumbers() {
+	public void extractNumbers(long hm) {
 		offsets = null;
 
 		if (this.text == null || this.text.length() < 10) return;
 		if (numbers == null || numbers.size() < 1) {
-			Long frequency = 01L;
+			Long frequency = hm;
 			FindEntity finder = new FindEntity(PHONE_NUMBERS, this.text);
 			Map<String, Group> groups = finder.groupWithMinFrequencyOf(frequency);
 			Map<String, Group> nums = finder.numbers(groups);
@@ -223,12 +222,12 @@ public class TXTFileController {
 		return;
 	}
 	
-	public void extractVehicles() {
+	public void extractVehicles(long hm) {
 		offsets = null;
 
 		if (this.text == null || this.text.length() < 10) return;
 		if (vehicles == null || vehicles.size() < 1) {
-			Long frequency = 01L;
+			Long frequency = hm;
 			FindEntity finder = new FindEntity(VEHICLES, this.text);
 			Map<String, Group> groups = finder.groupWithMinFrequencyOf(frequency);
 			Map<String, Group> vs = finder.vehicles(groups);
