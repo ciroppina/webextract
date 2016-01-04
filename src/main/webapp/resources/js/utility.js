@@ -1,9 +1,12 @@
 function aggiornaCurrent(stringa) {
 	//debug: alert(stringa);
 	document.getElementById("reg:current").value = stringa;
+	document.getElementById('reg:register').click();
 }
 
 function showEntity(start, end){
+	//debug: alert(start + " - " + end);
+	
 	//does not work with jQuery objects!
 	var tx=document.getElementById("reg:textArea");
 	var txValue = tx.value.toUpperCase();
