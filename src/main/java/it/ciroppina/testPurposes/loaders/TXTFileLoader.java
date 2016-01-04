@@ -40,13 +40,12 @@ public class TXTFileLoader {
 		try {
 			b = new byte[aStream.available()];
 			aStream.read(b);
+			aStream.close();
 			TEXT = new String(b, StandardCharsets.UTF_8);
 			/**
 			 * MOST Important: before using in JavaScript functions
 			 */
 			TEXT = TEXT.replace("\r\n", "\r");
-			//StringEscapeUtils.escapeHtml4(TEXT);
-			aStream.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		} 
