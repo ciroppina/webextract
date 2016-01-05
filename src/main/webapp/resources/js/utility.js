@@ -1,7 +1,8 @@
 function aggiornaCurrent(stringa) {
 	//debug: alert(stringa);
 	document.getElementById("reg:current").value = stringa;
-	document.getElementById('reg:register').click();
+	//document.getElementById('reg:register').click();
+	//document.getElementById('reg').submit();
 }
 
 function showEntity(start, end){
@@ -24,13 +25,13 @@ function showEntity(start, end){
 
 	if(tx.setSelectionRange) {
 		tx.focus();
-		tx.setSelectionRange(trueStart, trueEnd);
+		tx.setSelectionRange(trueStart, trueEnd); //trueStart, trueEnd
 	}
 	else if (tx.createTextRange) {
 		var range=tx.createTextRange();
 		range.collapse(true);
-		range.moveEnd('character', trueEnd);
-		range.moveStart('character', trueStart);
+		range.moveEnd('character', trueEnd); //trueEnd
+		range.moveStart('character', trueStart); //trueStart
 		range.select();
 	}
 
@@ -57,6 +58,68 @@ function setSelection(el, start, end) {
         }
         range.select();
     }
+}
+
+var SAR = {};
+SAR.find = function(aText){
+	//debug: alert(aText);
+
+	// collect variables
+	var txtArea = document.getElementById("reg:textArea");
+	var txt = txtArea.value;
+	var strSearchTerm;
+	if (aText == null) 
+		strSearchTerm = document.getElementById("reg:current").value;
+	else
+		strSearchTerm = aText;
+	//debug: alert(strSearchTerm);
+	
+	//var isCaseSensitive = document.getElementById("caseSensitive");
+	// make text lowercase if search is supposed to be case insensitive
+	//if(isCaseSensitive.checked){
+
+	txt = txt.toLowerCase();
+	strSearchTerm = strSearchTerm.toLowerCase();
+
+	//}
+   
+	// find next index of searchterm, starting from current cursor position
+	var cursorPos = (txtArea.selectionEnd);
+	//debug cursor position: alert(cursorPos);
+	var termPos = txt.indexOf(strSearchTerm, cursorPos);
+
+	// if found, select it
+	if(termPos != -1){
+		selectRange(txtArea, termPos, termPos+strSearchTerm.length);
+	}else{
+		// not found from cursor pos, so start from beginning
+		termPos = txt.indexOf(strSearchTerm);
+		if(termPos != -1){
+			selectRange(txtArea, termPos, termPos+strSearchTerm.length);
+		} else {
+			alert("not found");
+		}
+	}
+};
+
+
+function selectRange(inp, s, e) {
+	e = e || s;
+	if (inp.createTextRange) {
+		var r = inp.createTextRange();
+		r.collapse(true);
+		r.moveEnd('character', e);
+		r.moveStart('character', s);
+		r.select();
+	   /* window.alert("IF: " + inp.substring(s,e))*/
+	}else if(inp.setSelectionRange) {
+		inp.focus();
+		/*window.alert(inp);*/
+		inp.setSelectionRange(s, e);
+		
+		return false;
+	}
+	return false;
 }
 
 function selectRangeRel(fieldID,start,end,focuse) {

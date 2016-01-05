@@ -15,7 +15,7 @@
 			<h:panelGrid columns="2" >
 			    <h3 style="font-weight:600;">Load a text </h3>
 			    <h:inputFile value="#{textController.file}" >
-			        <f:ajax listener="#{textController.upload()}" render=":reg"/>
+			        <f:ajax listener="#{textController.upload()}" render="@all"/>
 			    </h:inputFile>
 		    </h:panelGrid>
 		</h:form>
@@ -43,8 +43,8 @@
                 	/>
                     <h:commandLink 
                     	id="register"
-                        action="#{textController.receive()}"
-                        styleClass="invisible" >
+                        onclick="javascript:SAR.find(); return false;"
+                        styleClass="invisible"  >
                         <h:graphicImage
                         	styleClass="search"
                         	value="/resources/gfx/glyphicons_free/glyphicons/png/glyphicons-28-search.png" 
@@ -74,7 +74,7 @@
                    	value="/resources/gfx/glyphicons_free/glyphicons/png/glyphicons-358-suitcase.png" />
            		</h:commandLink>
         		<h:commandLink id="vehicles" styleClass="invisible"
-        			action="#{textController.extractVehicles(5)}" >
+        			action="#{textController.extractVehicles(1)}" >
                    <h:graphicImage styleClass="extract" title="Vehicles"
                    	value="/resources/gfx/glyphicons_free/glyphicons/png/glyphicons-29-cars.png" />
            		</h:commandLink>
@@ -83,10 +83,10 @@
 	</h:column>
 	<h:column>
         <h:panelGroup style="width: 225px; display:inline-block;">
-        	<h:outputText value="Results for: "
+        	<h:outputText value="Results: "
         		style="font-weight:800;" /> 
-        	<h:outputText value="#{current.toUpperCase()}"
-        		style="font-weight:800;color:#890000;" /> 
+<!--         	<h:outputText value="#{current.toUpperCase()}" -->
+<!--         		style="font-weight:800;color:#890000;" />  -->
 		
 <!-- ****************** ALTERNATIVE DATATABLES ****************** -->		
 	        <h:dataTable var="_offset" value="#{offsets}"
@@ -104,7 +104,7 @@
 	                #{_offset.substring(_offset.indexOf(':') + 1)}
 	            </h:column>
 	            <h:column>
-	                <f:facet name="header">Show</f:facet>
+	                <f:facet name="header">Scroll</f:facet>
 	                <h:commandButton id="go"
 	                    value="go" 
 	                    onclick="javascript:showEntity( #{_offset.subSequence(0, _offset.indexOf(':'))}, #{_offset.substring(_offset.indexOf(':') + 1)} );"
@@ -116,25 +116,33 @@
 	            rendered="#{not empty people}"
 	            styleClass="simpletablestyle"
 	            id="dtPeople" >
-<!-- 	            <h:column> -->
-<!-- 	                <f:facet name="header">Prev</f:facet> -->
-<!-- 	                <h:graphicImage styleClass="" id="prev" -->
-<!--                    	value="/resources/gfx/glyphicons_free/glyphicons/png/glyphicons-223-share.png" /> -->
-<!-- 	            </h:column> -->
 	            <h:column>
-	                <f:facet name="header">Search</f:facet>
-	                <h:form style="padding: 0px 5px;"><h:commandLink 
-	                	onclick="javascript:aggiornaCurrent('#{_people.key}');"
+	                <f:facet name="header">Show all occur.s</f:facet>
+	                <h:form style="padding: 0px 5px;">
+	                <h:commandLink 
+	                	action="#{textController.receive(_people.key) }"
+	                	onclick="javascript:aggiornaCurrent('#{_people.key}'); return true;"
                         styleClass="invisible" >
-                        <f:ajax />
 		                <h:graphicImage styleClass="" id="next"
-	                   		value="/resources/gfx/glyphicons_free/glyphicons/png/glyphicons-28-search.png" 
+	                   		value="/resources/gfx/glyphicons_free/glyphicons/png/glyphicons-52-eye-open.png" 
                    		/>
                    	</h:commandLink></h:form>
 	            </h:column>
 	            <h:column>
 	                <f:facet name="header">Who</f:facet>
 	                #{_people.key} ( #{_people.value.getCount()} )
+	            </h:column>
+	            <h:column>
+	                <f:facet name="header">Next</f:facet>
+	                <h:form style="padding: 0px 5px;">
+	                <h:commandLink 
+	                	onclick="javascript:SAR.find('#{_people.key}'); return false;"
+                        styleClass="invisible" >
+                        <f:ajax />
+		                <h:graphicImage styleClass="" id="next"
+	                   		value="/resources/gfx/glyphicons_free/glyphicons/png/glyphicons-28-search.png" 
+                   		/>
+                   	</h:commandLink></h:form>
 	            </h:column>
 	        </h:dataTable>
 	        
@@ -143,19 +151,31 @@
 	            styleClass="simpletablestyle"
 	            id="dtNumbers" >
 	            <h:column>
-	                <f:facet name="header">Search</f:facet>
-	                <h:form style="padding: 0px 5px;"><h:commandLink 
-	                	onclick="javascript:aggiornaCurrent('#{_nums.key}');"
+	                <f:facet name="header">Show all occur.s</f:facet>
+	                <h:form style="padding: 0px 5px;">
+	                <h:commandLink
+	                	action="#{textController.receive(_nums.key) }"
+	                	onclick="javascript:aggiornaCurrent('#{_nums.key}'); return true;"
                         styleClass="invisible" >
-                        <f:ajax />
 		                <h:graphicImage
-	                   		value="/resources/gfx/glyphicons_free/glyphicons/png/glyphicons-28-search.png" 
+	                   		value="/resources/gfx/glyphicons_free/glyphicons/png/glyphicons-52-eye-open.png" 
                    		/>
                    	</h:commandLink></h:form>
 	            </h:column>
 	            <h:column>
 	                <f:facet name="header">Number</f:facet>
 	                #{_nums.key} ( #{_nums.value.getCount()} )
+	            </h:column>
+	            <h:column>
+	                <f:facet name="header">Next</f:facet>
+	                <h:form style="padding: 0px 5px;"><h:commandLink 
+	                	onclick="javascript:SAR.find('#{_nums.key}'); return false;"
+                        styleClass="invisible" >
+                        <f:ajax />
+		                <h:graphicImage styleClass="" id="next"
+	                   		value="/resources/gfx/glyphicons_free/glyphicons/png/glyphicons-28-search.png" 
+                   		/>
+                   	</h:commandLink></h:form>
 	            </h:column>
 	        </h:dataTable>
 	        
@@ -164,13 +184,14 @@
 	            styleClass="simpletablestyle"
 	            id="dtVehicles" >
 	            <h:column>
-	                <f:facet name="header">Search</f:facet>
-	                <h:form style="padding: 0px 5px;"><h:commandLink 
-	                	onclick="javascript:aggiornaCurrent('#{_vehicle.key}');"
+	                <f:facet name="header">Show all occur.s</f:facet>
+	                <h:form style="padding: 0px 5px;">
+	                <h:commandLink 
+	                	action="#{textController.receive(_vehicle.key) }"
+	                	onclick="javascript:aggiornaCurrent('#{_vehicle.key}'); return true;"
                         styleClass="invisible" >
-                        <f:ajax />
 		                <h:graphicImage
-	                   		value="/resources/gfx/glyphicons_free/glyphicons/png/glyphicons-28-search.png" 
+	                   		value="/resources/gfx/glyphicons_free/glyphicons/png/glyphicons-52-eye-open.png" 
                    		/>
                    	</h:commandLink></h:form>
 	            </h:column>
@@ -178,6 +199,18 @@
 	                <f:facet name="header">Vehicle</f:facet>
 	                <span style="font-size: 0.8em;">#{_vehicle.key} ( #{_vehicle.value.getCount()} )
 	                </span>
+	            </h:column>
+	            <h:column>
+	                <f:facet name="header">Next</f:facet>
+	                <h:form style="padding: 0px 5px;">
+	                <h:commandLink 
+	                	onclick="javascript:SAR.find('#{_vehicle.key}'); return false;"
+                        styleClass="invisible" >
+                        <f:ajax />
+		                <h:graphicImage styleClass="" id="next"
+	                   		value="/resources/gfx/glyphicons_free/glyphicons/png/glyphicons-28-search.png" 
+                   		/>
+                   	</h:commandLink></h:form>
 	            </h:column>
 	        </h:dataTable>
         </h:panelGroup> 
